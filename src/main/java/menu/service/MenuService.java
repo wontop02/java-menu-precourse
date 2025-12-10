@@ -81,4 +81,16 @@ public class MenuService {
     public List<Coach> makeCoaches(String input) {
         return CoachParser.stringToCoachList(input);
     }
+
+    public void makeHateMenus(Coach coach, String input) {
+        if (input == null || input.isBlank()) {
+            return;
+        }
+        List<String> menus = Arrays.asList(input.split(",", -1));
+        menus.forEach(MenuRepository::findByName);
+        for (String menu : menus) {
+            coach.addHateMenu(menu);
+            System.out.println(menu);
+        }
+    }
 }

@@ -13,4 +13,10 @@ public class CoachParser {
                 .map(Coach::new)
                 .toList();
     }
+
+    public static List<String> coachListToString(List<Coach> coaches) {
+        return coaches.stream()
+                .map(Coach::getName)
+                .toList();
+    }
 }

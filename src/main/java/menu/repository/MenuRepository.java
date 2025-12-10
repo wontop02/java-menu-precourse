@@ -20,6 +20,6 @@ public class MenuRepository {
         return menus.stream()
                 .filter(m -> m.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException(NOT_FOUND_MENU));
+                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_MENU));
     }
 }

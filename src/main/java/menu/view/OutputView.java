@@ -9,7 +9,6 @@ public class OutputView {
 
     public static void printErrorMessage(String message) {
         System.out.println(ERROR_PREFIX + message);
-        System.out.println();
     }
 
     public static void printStart() {

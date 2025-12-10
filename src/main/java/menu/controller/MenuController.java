@@ -18,6 +18,7 @@ public class MenuController {
         menuService.init();
         OutputView.printStart();
         List<Coach> coaches = makeCoaches();
+        makeHateMenus(coaches);
     }
 
     private List<Coach> makeCoaches() {
@@ -26,6 +27,25 @@ public class MenuController {
                 String input = InputView.requestNames();
                 InputValidator.validateCoachNames(input);
                 return menuService.makeCoaches(input);
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private void makeHateMenus(List<Coach> coaches) {
+        for (Coach coach : coaches) {
+            requestHateMenus(coach);
+        }
+    }
+
+    private void requestHateMenus(Coach coach) {
+        while (true) {
+            try {
+                String input = InputView.requestHateMenus(coach.getName());
+                InputValidator.validateHateMenus(input);
+                menuService.makeHateMenus(coach, input);
+                break;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e.getMessage());
             }

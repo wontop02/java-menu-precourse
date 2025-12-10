@@ -7,6 +7,7 @@ import java.util.List;
 public class InputValidator {
     private static final int MIN_NUMBER_OF_COACHES = 2;
     private static final int MAX_NUMBER_OF_COACHES = 5;
+    private static final int MAX_HATE_MENU_SIZE = 2;
     private static final String KOREAN_AND_COMMA_ONLY_REGEX = "^[가-힣,]+$";
 
     private static final String BLANK_INPUT = "빈 문자열은 허용하지 않습니다.";
@@ -16,6 +17,7 @@ public class InputValidator {
             "코치 수는 %d명 이상, %d명 이하여야 합니다.",
             MIN_NUMBER_OF_COACHES, MAX_NUMBER_OF_COACHES
     );
+    private static final String INVALID_HATE_MENU_SIZE = " 못 먹는 메뉴는 최대 2개까지 입력 가능합니다.";
 
     private InputValidator() {
     }
@@ -49,6 +51,22 @@ public class InputValidator {
     private static void validateNumberOfCoaches(List<String> inputs) {
         if (inputs.size() < MIN_NUMBER_OF_COACHES || inputs.size() > MAX_NUMBER_OF_COACHES) {
             throw new IllegalArgumentException(INVALID_NUMBER_OF_COACHES);
+        }
+    }
+
+    public static void validateHateMenus(String input) {
+        if (input == null || input.isBlank()) {
+            return;
+        }
+        validateKoreanAndCommaOnly(input);
+        List<String> inputs = Arrays.asList(input.split(",", -1));
+        validateHateMenuSize(inputs);
+        validateNotDuplicate(inputs);
+    }
+
+    private static void validateHateMenuSize(List<String> inputs) {
+        if (inputs.size() > MAX_HATE_MENU_SIZE) {
+            throw new IllegalArgumentException(INVALID_HATE_MENU_SIZE);
         }
     }
 }

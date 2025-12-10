@@ -1,5 +1,8 @@
 package menu.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Coach {
     private static final int MIN_NAME = 2;
     private static final int MAX_NAME = 4;
@@ -10,6 +13,7 @@ public class Coach {
     );
 
     private final String name;
+    private final List<String> hateMenus = new ArrayList<>();
 
     public Coach(String name) {
         validateName(name);
@@ -20,5 +24,17 @@ public class Coach {
         if (name.length() < MIN_NAME || name.length() > MAX_NAME) {
             throw new IllegalArgumentException(INVALID_NAME_LENGTH);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void addHateMenu(String menu) {
+        hateMenus.add(menu);
+    }
+
+    public List<String> hateMenus() {
+        return List.copyOf(hateMenus);
     }
 }

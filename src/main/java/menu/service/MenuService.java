@@ -6,8 +6,10 @@ import static menu.enums.Category.JAPANESE;
 import static menu.enums.Category.KOREAN;
 import static menu.enums.Category.WESTERN;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,5 +95,17 @@ public class MenuService {
             Menu menu = MenuRepository.findByName(menuName);
             coach.addHateMenu(menu);
         }
+    }
+
+    public List<Category> pickCategories() {
+        List<Category> categories = new ArrayList<>();
+        while (categories.size() < 5) {
+            Category category = Category.valueOfCategory(Randoms.pickNumberInRange(1, 5));
+            if (Collections.frequency(categories, category) >= 2) {
+                continue;
+            }
+            categories.add(category);
+        }
+        return categories;
     }
 }

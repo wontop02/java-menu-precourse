@@ -22,6 +22,7 @@ public class MenuController {
         OutputView.printStart();
         List<Coach> coaches = makeCoaches();
         makeHateMenus(coaches);
+        List<Category> categories = pickCategories();
     }
 
     private List<Coach> makeCoaches() {
@@ -53,5 +54,9 @@ public class MenuController {
                 OutputView.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private List<Category> pickCategories() {
+        return menuService.pickCategories();
     }
 }

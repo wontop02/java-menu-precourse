@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import menu.domain.Coach;
+import menu.domain.CoachParser;
 import menu.enums.Category;
 import menu.enums.Menu;
 import menu.repository.MenuRepository;
@@ -74,5 +76,9 @@ public class MenuService {
                 .toList();
         westernMenus.forEach(MenuRepository::addMenu);
         menus.put(WESTERN, westernMenus);
+    }
+
+    public List<Coach> makeCoaches(String input) {
+        return CoachParser.stringToCoachList(input);
     }
 }

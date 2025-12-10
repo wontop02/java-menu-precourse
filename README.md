@@ -166,9 +166,9 @@ String menu = Randoms.shuffle(menus).get(0);
 
 - 매 요일의 카테고리 추첨
     - `camp.nextstep.edu.missionutils`에서 제공하는 `Randoms.pickNumberInRange()`을 사용
-    - ```
-  // 예시 코드. 사용하는 자료 구조에 따라 난수를 적절하게 가공해도 된다.
-  String category = categories.get(Randoms.pickNumberInRange(1, 5));
+    ```
+    // 예시 코드. 사용하는 자료 구조에 따라 난수를 적절하게 가공해도 된다.
+    String category = categories.get(Randoms.pickNumberInRange(1, 5));
     ```
 - 추첨된 카테고리가 이미 2번 이상 나온 카테고리면 재추첨
 
@@ -176,10 +176,10 @@ String menu = Randoms.shuffle(menus).get(0);
 
 - 매 요일의 카테고리에 따른 메뉴 추첨
     - `camp.nextstep.edu.missionutils`에서 제공하는 `Randoms.shuffle()`을 사용
-    - ```
-  String menu = Randoms.shuffle(menus).get(0);
     ```
-        - shuffle()에 매개변수로 들어가는 menus는 최초에 제공한 목록 그대로여야 함
+    String menu = Randoms.shuffle(menus).get(0);
+    ```
+- shuffle()에 매개변수로 들어가는 menus는 최초에 제공한 목록 그대로여야 함
 - 각 코치별로, 이미 나온 메뉴가 나올 경우 재추첨
 
 ### 메뉴 추천 결과 출력

@@ -16,6 +16,8 @@ import java.util.Map;
 import menu.domain.Coach;
 import menu.domain.CoachParser;
 import menu.domain.Menu;
+import menu.domain.MenuParser;
+import menu.domain.ResultParser;
 import menu.enums.Category;
 import menu.repository.MenuRepository;
 
@@ -118,7 +120,9 @@ public class MenuService {
             while (coachMenus.size() < 5) {
                 Category category = categories.get(i);
                 List<Menu> allMenus = menus.get(category);
-                Menu menu = Randoms.shuffle(allMenus).get(0);
+                List<String> parsedMenus = MenuParser.menuListToString(allMenus);
+                String menuName = Randoms.shuffle(parsedMenus).get(0);
+                Menu menu = MenuRepository.findByName(menuName);
                 if (coachMenus.contains(menu) || coach.hateMenus().contains(menu)) {
                     continue;
                 }
@@ -128,5 +132,19 @@ public class MenuService {
             recommendedMenus.put(coach, coachMenus);
         }
         return recommendedMenus;
+    }
+
+    public List<String> categoriesToString(List<Category> categories) {
+        return categories.stream()
+                .map(Category::getCategory)
+                .toList();
+    }
+
+    public List<String> coachesToString(List<Coach> coaches) {
+        return CoachParser.coachListToString(coaches);
+    }
+
+    public Map<String, List<String>> resultToString(Map<Coach, List<Menu>> menus) {
+        return ResultParser.toStringMap(menus);
     }
 }

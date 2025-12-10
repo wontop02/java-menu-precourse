@@ -24,6 +24,7 @@ public class MenuController {
         makeHateMenus(coaches);
         List<Category> categories = recommendCategories();
         Map<Coach, List<Menu>> recommendedMenus = recommendMenus(menus, coaches, categories);
+        printResult(categories, coaches, recommendedMenus);
     }
 
     private List<Coach> makeCoaches() {
@@ -64,5 +65,12 @@ public class MenuController {
     private Map<Coach, List<Menu>> recommendMenus(Map<Category, List<Menu>> menus, List<Coach> coaches,
                                                   List<Category> categories) {
         return menuService.recommendMenus(menus, coaches, categories);
+    }
+
+    private void printResult(List<Category> categories, List<Coach> coaches, Map<Coach, List<Menu>> result) {
+        List<String> parsedCategory = menuService.categoriesToString(categories);
+        Map<String, List<String>> parsedResult = menuService.resultToString(result);
+        List<String> parsedCoaches = menuService.coachesToString(coaches);
+        OutputView.printResult(parsedCategory, parsedCoaches, parsedResult);
     }
 }

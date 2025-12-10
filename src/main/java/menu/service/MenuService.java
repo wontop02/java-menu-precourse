@@ -97,7 +97,7 @@ public class MenuService {
         }
     }
 
-    public List<Category> pickCategories() {
+    public List<Category> recommendCategories() {
         List<Category> categories = new ArrayList<>();
         while (categories.size() < 5) {
             Category category = Category.valueOfCategory(Randoms.pickNumberInRange(1, 5));
@@ -107,5 +107,26 @@ public class MenuService {
             categories.add(category);
         }
         return categories;
+    }
+
+    public Map<Coach, List<Menu>> recommendMenus(Map<Category, List<Menu>> menus, List<Coach> coaches,
+                                                 List<Category> categories) {
+        Map<Coach, List<Menu>> recommendedMenus = new HashMap<>();
+        for (Coach coach : coaches) {
+            List<Menu> coachMenus = new ArrayList<>();
+            int i = 0;
+            while (coachMenus.size() < 5) {
+                Category category = categories.get(i);
+                List<Menu> allMenus = menus.get(category);
+                Menu menu = Randoms.shuffle(allMenus).get(0);
+                if (coachMenus.contains(menu) || coach.hateMenus().contains(menu)) {
+                    continue;
+                }
+                coachMenus.add(menu);
+                i++;
+            }
+            recommendedMenus.put(coach, coachMenus);
+        }
+        return recommendedMenus;
     }
 }

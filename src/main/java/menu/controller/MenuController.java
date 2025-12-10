@@ -22,7 +22,8 @@ public class MenuController {
         OutputView.printStart();
         List<Coach> coaches = makeCoaches();
         makeHateMenus(coaches);
-        List<Category> categories = pickCategories();
+        List<Category> categories = recommendCategories();
+        Map<Coach, List<Menu>> recommendedMenus = recommendMenus(menus, coaches, categories);
     }
 
     private List<Coach> makeCoaches() {
@@ -56,7 +57,12 @@ public class MenuController {
         }
     }
 
-    private List<Category> pickCategories() {
-        return menuService.pickCategories();
+    private List<Category> recommendCategories() {
+        return menuService.recommendCategories();
+    }
+
+    private Map<Coach, List<Menu>> recommendMenus(Map<Category, List<Menu>> menus, List<Coach> coaches,
+                                                  List<Category> categories) {
+        return menuService.recommendMenus(menus, coaches, categories);
     }
 }

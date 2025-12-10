@@ -115,21 +115,24 @@ public class MenuService {
                                                  List<Category> categories) {
         Map<Coach, List<Menu>> recommendedMenus = new HashMap<>();
         for (Coach coach : coaches) {
-            List<Menu> coachMenus = new ArrayList<>();
-            int i = 0;
-            while (coachMenus.size() < 5) {
-                Category category = categories.get(i);
-                List<Menu> allMenus = menus.get(category);
-                List<String> parsedMenus = MenuParser.menuListToString(allMenus);
-                String menuName = Randoms.shuffle(parsedMenus).get(0);
-                Menu menu = MenuRepository.findByName(menuName);
-                if (coachMenus.contains(menu) || coach.hateMenus().contains(menu)) {
-                    continue;
+            recommendedMenus.put(coach, new ArrayList<>());
+        }
+        for (Category category : categories) {
+            for (Coach coach : coaches) {
+                while (true) {
+                    List<Menu> coachMenus = recommendedMenus.get(coach);
+                    List<Menu> allMenus = menus.get(category);
+                    List<String> parsedMenus = MenuParser.menuListToString(allMenus);
+                    String menuName = Randoms.shuffle(parsedMenus).get(0);
+                    Menu menu = MenuRepository.findByName(menuName);
+                    if (coachMenus.contains(menu) || coach.hateMenus().contains(menu)) {
+                        continue;
+                    }
+                    coachMenus.add(menu);
+                    recommendedMenus.put(coach, coachMenus);
+                    break;
                 }
-                coachMenus.add(menu);
-                i++;
             }
-            recommendedMenus.put(coach, coachMenus);
         }
         return recommendedMenus;
     }

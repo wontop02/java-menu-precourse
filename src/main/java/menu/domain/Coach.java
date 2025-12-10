@@ -13,7 +13,7 @@ public class Coach {
     );
 
     private final String name;
-    private final List<String> hateMenus = new ArrayList<>();
+    private final List<Menu> hateMenus = new ArrayList<>();
 
     public Coach(String name) {
         validateName(name);
@@ -30,11 +30,11 @@ public class Coach {
         return name;
     }
 
-    public void addHateMenu(String menu) {
+    public void addHateMenu(Menu menu) {
         hateMenus.add(menu);
     }
 
-    public List<String> hateMenus() {
+    public List<Menu> hateMenus() {
         return List.copyOf(hateMenus);
     }
 }

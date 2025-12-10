@@ -1,7 +1,10 @@
 package menu.controller;
 
 import java.util.List;
+import java.util.Map;
 import menu.domain.Coach;
+import menu.domain.Menu;
+import menu.enums.Category;
 import menu.service.MenuService;
 import menu.util.InputValidator;
 import menu.view.InputView;
@@ -15,7 +18,7 @@ public class MenuController {
     }
 
     public void start() {
-        menuService.init();
+        Map<Category, List<Menu>> menus = menuService.initMenus();
         OutputView.printStart();
         List<Coach> coaches = makeCoaches();
         makeHateMenus(coaches);

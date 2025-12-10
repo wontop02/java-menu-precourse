@@ -2,7 +2,7 @@ package menu.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import menu.enums.Menu;
+import menu.domain.Menu;
 
 public class MenuRepository {
     private static final String NOT_FOUND_MENU = "메뉴를 찾을 수 없습니다.";

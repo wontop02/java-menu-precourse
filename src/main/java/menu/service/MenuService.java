@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 import menu.domain.Coach;
 import menu.domain.CoachParser;
+import menu.domain.Menu;
 import menu.enums.Category;
-import menu.enums.Menu;
 import menu.repository.MenuRepository;
 
 public class MenuService {
-    public Map<Category, List<Menu>> init() {
+    public Map<Category, List<Menu>> initMenus() {
         Map<Category, List<Menu>> menus = new HashMap<>();
         initJapanese(menus);
         initKorean(menus);
@@ -87,10 +87,11 @@ public class MenuService {
             return;
         }
         List<String> menus = Arrays.asList(input.split(",", -1));
+        // 전체 메뉴가 존재하는지 먼저 확인
         menus.forEach(MenuRepository::findByName);
-        for (String menu : menus) {
+        for (String menuName : menus) {
+            Menu menu = MenuRepository.findByName(menuName);
             coach.addHateMenu(menu);
-            System.out.println(menu);
         }
     }
 }

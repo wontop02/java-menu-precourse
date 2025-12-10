@@ -1,4 +1,4 @@
-# 🖥️ 우테코 최종 미션 -
+# 🖥️ 우테코 최종 미션 - 점심 메뉴 추천
 
 - 기능 요구 사항에 기재되지 않은, 스스로 판단한 부분은 **볼드체** 사용
 
@@ -139,6 +139,7 @@ String menu = Randoms.shuffle(menus).get(0);
 - 사용자에게 입력값 요청
     - `camp.nextstep.edu.missionutils.Console`의 `readLine()` 활용
 - 입력값 검증: 잘못된 값일 경우 `IllegalArgumentException` 발생 및 재입력 요청
+    - 빈 문자열이 입력된 경우
     - 쉼표, 한글(자음+모음)을 제외한 문자가 들어간 경우
     - 코치 인원이 2명 미만, 5명 초과인 경우
     - 각 코치의 이름이 2글자 미만, 4글자 초과인 경우
@@ -166,8 +167,8 @@ String menu = Randoms.shuffle(menus).get(0);
 - 매 요일의 카테고리 추첨
     - `camp.nextstep.edu.missionutils`에서 제공하는 `Randoms.pickNumberInRange()`을 사용
     - ```
-    // 예시 코드. 사용하는 자료 구조에 따라 난수를 적절하게 가공해도 된다.
-    String category = categories.get(Randoms.pickNumberInRange(1, 5));
+  // 예시 코드. 사용하는 자료 구조에 따라 난수를 적절하게 가공해도 된다.
+  String category = categories.get(Randoms.pickNumberInRange(1, 5));
     ```
 - 추첨된 카테고리가 이미 2번 이상 나온 카테고리면 재추첨
 
@@ -176,7 +177,7 @@ String menu = Randoms.shuffle(menus).get(0);
 - 매 요일의 카테고리에 따른 메뉴 추첨
     - `camp.nextstep.edu.missionutils`에서 제공하는 `Randoms.shuffle()`을 사용
     - ```
-    String menu = Randoms.shuffle(menus).get(0);
+  String menu = Randoms.shuffle(menus).get(0);
     ```
         - shuffle()에 매개변수로 들어가는 menus는 최초에 제공한 목록 그대로여야 함
 - 각 코치별로, 이미 나온 메뉴가 나올 경우 재추첨

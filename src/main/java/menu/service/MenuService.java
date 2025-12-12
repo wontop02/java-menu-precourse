@@ -14,10 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import menu.domain.Coach;
-import menu.domain.CoachParser;
 import menu.domain.Menu;
-import menu.domain.MenuParser;
-import menu.domain.ResultParser;
 import menu.enums.Category;
 import menu.repository.MenuRepository;
 
@@ -83,7 +80,7 @@ public class MenuService {
     }
 
     public List<Coach> makeCoaches(String input) {
-        return CoachParser.stringToCoachList(input);
+        return stringToCoachList(input);
     }
 
     public void makeHateMenus(Coach coach, String input) {
@@ -129,14 +126,13 @@ public class MenuService {
             while (true) {
                 List<Menu> coachMenus = recommendedMenus.get(coach);
                 List<Menu> allMenus = menus.get(category);
-                List<String> parsedMenus = MenuParser.menuListToString(allMenus);
+                List<String> parsedMenus = menuListToString(allMenus);
                 String menuName = Randoms.shuffle(parsedMenus).get(0);
                 Menu menu = MenuRepository.findByName(menuName);
                 if (coachMenus.contains(menu) || coach.hateMenus().contains(menu)) {
                     continue;
                 }
                 coachMenus.add(menu);
-                recommendedMenus.put(coach, coachMenus);
                 break;
             }
         }
@@ -149,10 +145,34 @@ public class MenuService {
     }
 
     public List<String> coachesToString(List<Coach> coaches) {
-        return CoachParser.coachListToString(coaches);
+        return coachListToString(coaches);
     }
 
     public Map<String, List<String>> resultToString(Map<Coach, List<Menu>> menus) {
-        return ResultParser.toStringMap(menus);
+        Map<String, List<String>> result = new HashMap<>();
+        for (Map.Entry<Coach, List<Menu>> entry : menus.entrySet()) {
+            List<String> parsedMenus = menuListToString(entry.getValue());
+            result.put(entry.getKey().getName(), parsedMenus);
+        }
+        return result;
+    }
+
+    private static List<Coach> stringToCoachList(String input) {
+        List<String> inputs = Arrays.asList(input.split(",", -1));
+        return inputs.stream()
+                .map(Coach::new)
+                .toList();
+    }
+
+    private static List<String> coachListToString(List<Coach> coaches) {
+        return coaches.stream()
+                .map(Coach::getName)
+                .toList();
+    }
+
+    private static List<String> menuListToString(List<Menu> menus) {
+        return menus.stream()
+                .map(Menu::getName)
+                .toList();
     }
 }
